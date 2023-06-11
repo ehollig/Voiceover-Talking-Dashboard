@@ -41,6 +41,7 @@ set currentDate to current date
 set amPM to "AM"
 set currentHour to (currentDate's hours)
 set currentMinutes to currentDate's minutes
+set currentSeconds to currentDate's seconds
 
 if (currentHour ³ 12 and currentHour < 24) then
 	set amPM to "PM"
@@ -53,6 +54,11 @@ if currentMinutes < 10 then
 	set currentMinutes to ("0" & currentMinutes) as text
 end if
 
+--  make seconds below 10 sound nice
+if currentSeconds < 10 then
+	set currentSeconds to ("0" & currentSeconds) as text
+end if
+
 --  ensure 0:nn gets set to 12:nn AM
 if currentHour is equal to 0 then
 	set currentHour to 12
@@ -63,7 +69,7 @@ if (currentHour > 12) then
 	set currentHour to (currentHour - 12)
 end if
 
-set currentTime to (currentHour as text) & ":" & ((currentMinutes) as text) & " " & amPM as text & ". " & ((currentDate's month) as text) & " " & ((currentDate's day) as text)
+set currentTime to ((currentHour as text) & ":" & ((currentMinutes) as text) & ":" & ((currentSeconds) as text) & " " & amPM as text) & ". " & ((currentDate's month) as text) & " " & ((currentDate's day) as text) & ", " & ((currentDate's Year) as text)
 
 if isVoiceOverRunningWithAppleScript() then
 	tell application "VoiceOver"
